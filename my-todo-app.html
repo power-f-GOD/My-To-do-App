@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> My To-do📝 App </title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta id="metallic" name="theme-color" content="#282828" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" type="image/png" href="my_todo_app.png">
+		<link rel="manifest" href="manifest.json">
+	</head>
+	<body>
+		<div id="not-supported">
+			<div id="not-supported-message"> Oops! 😞 Sorry. "My To-do📝 App" is not supported by this software (app) you are currently running it on. Kindly open "My To-do📝 App" with a browser. Thanks.
+				<br /><br /> - Godspower ;) 
+			</div>
+		</div>
+		<style type="text/css">
+			#not-supported 
+			{
+				display: table;
+				width: 100%;
+				height: 100%;
+				background: #222;
+				position: fixed;
+				top: 0;
+				z-index: 10;
+			}
+			
+			#not-supported > div
+			{
+				display: table-cell;
+				text-align: center;
+				vertical-align: middle;
+				height: 100%;
+				width: 100%;
+				padding: 8%;
+				color: #888;
+				line-height: 150%;
+			}
+		</style>
+		<script type="text/javascript">
+			document.getElementById("not-supported").style.display = "none";
+		</script>
+		
+		<div id="content-wrapper">
+			<h2> •••<span class="skyblue">|</span> My To-do📝 App <span class="skyblue">|</span>••• </h2>
+			<div id="log"></div>
+			<div class="col-sm-6 col-12 sub-content-wrapper">
+				<!-- Create/Delete tasks - START -->
+				<hr />
+				<div id="create-delete-container-parent">
+					<div id="create-delete-container">
+						<button id="create-task">➕ Add Task</button>
+						<button id="delete-all">✂ Remove All Tasks</button>
+					</div>
+				</div>
+				<hr />
+				<!-- Create/Delete tasks - END -->
+				<!-- Task wrapper - START -->
+				<div id="tasks-container"></div>
+				<!-- Task wrapper - END -->
+			</div>
+			<div id="my-name">
+				Designed and developed by <br />
+				<a id="name" href="https://api.whatsapp.com/send?phone=2348105506514" target="_blank">Sunday Power Inemesit</a>	<br /> 
+				<span> Computer Science Dept. &frac14; UNN </span> <br />
+				&copy; 2018
+			</div>
+			<div id="toast-wrapper">
+				<span id="toast">File successfully Saved</span>
+			</div>
+			<div id="info-container">
+				<div id="info">
+					You have: <br /><br />
+					<span id="number-of-tasks"></span> active task(s); <br />
+					<span id="number-of-completed"></span> completed; <br />
+					<span id="number-of-incompleted"></span> incompleted; <br />
+					<span id="number-of-almost-completed"></span> almost completed. <br />
+					And your overall task progress is <span id="overall-progress"></span>. <br /><br /><br />
+					Comment: <span id="emoji-mood"></span><br />
+					<span id="comment">No comment.</span>
+				</div>
+				<span id="open-help-wrapper" class="scaleDown">
+					<span id="open-help">💡</span>
+				</span>
+			</div>
+			<div id="help-page" class="scaleUp">
+				<h3>💡 How To Make Efficient Use of "My To-do📝 App": </h3>
+				<ol>
+					<li>Every morning🌞, before leaving your home/hostel🏨 for the day, launch "My To-do📝 App" to see if you have any uncompleted task which you should complete, then set out to complete it; 💡</li>
+					<li>Add➕ at least one task daily even if it's to read for some specific number of hours for the day; it's still a task and a good one 👍. "My To-do📝 App" should not be void of tasks; 💡</li>
+					<li>Always 💯 set your progress after adding and starting out with a task; 💡</li>
+					<li>Always👌 monitor your progress📈 with individual tasks and be dedicated to completing each task; 💡</li>
+					<li>After every lecture, before leaving the lecture hall, keep calm and open "My To-do📝 App" to check to see if you have any tasks you should accomplish for the moment; 💡</li>
+					<li>Before setting out to return to your home/hostel🏨, pause⏸ for a moment and then open "My To-do📝 App" to be sure you've not forgotten something; 💡</li>
+					<li>Whenever a thing (a task possibly) comes to mind🤔 for you to carry out, do not hesitate to 'pen' it down on "My To-do📝 App" lest you forget it. 💡</li>
+				</ol>
+				<br />
+				<p> 
+					I believe if you follow all the guidelines outlined above, you'd make a better student and your day even more productive than usual. 😊✌
+					<br /><br />
+					<b>PS:</b> I suggest you create a shortcut to "My To-do📝 App" on your device home screen. It would be nice. You can do that by tapping the 'Menu' button in your browser and Navigate to the 'Add to Home screen' option on Chrome or navigate to 'Page' then to the 'Add Page Shortcut' option in Firefox. 
+					Do send a text to <a href="https://api.whatsapp.com/send?phone=2348105506514" target="_blank">@Power'f GOD⚡⚡</a> if you do encounter any difficulties or find any bugs or you wanna say "Hi!". 😉✌ God speed. 👍
+				</p>
+			</div>
+		
+			<button id="open-info">i</button>
+			
+			<div id="transparent-bg"></div>
+		</div>
+
+		<style type="text/css">
+			html,
+			body
+			{
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				font-size: 14px;
+				font-family: "Trebuchet MS", "Comic Sans MS";
+				position: relative;
+				background: black;
+			}
+			
+			body
+			{ margin: 0; }
+			
+			*
+			{ box-sizing: border-box; }
+			
+			#content-wrapper
+			{
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				display: none;
+				flex-direction: column;
+				overflow-y: auto;
+				background: #707070;
+				max-width: 475px;
+				-webkit-transition: left 1s;
+				-moz-transition: left 1s;
+				-ms-transition: left 1s;
+				-o-transition: left 1s;
+				transition: left 1s;
+			}
+			
+			h2
+			{
+				padding: 1.55rem 20px;
+				text-align: center;
+				background: #282828;
+				color: gainsboro;
+				margin: 0;
+				font-family: "Trebuchet MS";
+				box-shadow: 0 7px 0 black;
+			}
+			
+			.skyblue { color: skyblue; }
+			
+			#log
+			{
+				position: fixed;
+				top: 0;
+				left: 0;
+				color: white;
+				z-index: 5;
+			}
+			
+			input
+			{
+				background: none;
+				border: none;
+				outline: none;
+				color: royalblue;
+				border-bottom: 2px solid royalblue;
+				text-align: center;
+				font-family: "Trebuchet MS";
+				width: 100%;
+				padding: 4px 6px;
+				margin: 0 auto;
+				font-size: 105%;
+				-webkit-transition: 0.3s;
+				-moz-transition: 0.3s;
+				-ms-transition: 0.3s;
+				-o-transition: 0.3s;
+				transition: 0.3s;
+			}
+				
+			button
+			{
+				border: none;
+				border-radius: 3px;
+				padding: 7px 14px;
+				color: white;
+				outline: none;
+				font-family: "Trebuchet MS";
+				white-space: nowrap;
+				-webkit-transition: 0.25s ease-out;
+				-moz-transition: 0.25s ease-out;
+				-ms-transition: 0.25s ease-out;
+				-o-transition: 0.25s ease-out;
+				transition: 0.25s ease-out;
+			}
+			
+			input:hover
+			{ 
+				border-bottom: 2px solid royalblue; 
+				color: royalblue; 
+			}
+			
+			span
+			{ display: inline-block; }
+			
+			a 
+			{ text-decoration: none; }
+			
+			a:visited
+			{ color: blue; }
+
+			hr
+			{
+				border: none;
+				margin: 20px auto 18px auto;
+				width: 80%;
+				height: 2px;
+				background: -webkit-radial-gradient(#8a8a8a, #8a8a8a, #707070, #707070);
+				background: -moz-radial-gradient(#8a8a8a, #8a8a8a, #707070, #707070);
+				background: -ms-radial-gradient(#8a8a8a, #8a8a8a, #707070, #707070);
+				background: -o-radial-gradient(#a8a8a8a, #8a8a8a, #707070, #707070);
+				background: radial-gradient(#8a8a8a, #8a8a8a, #707070, #707070);
+			}
+			
+			.sub-content-wrapper
+			{ padding: 8px 5% 20px 5%; }
+			
+			#create-delete-container-parent
+			{
+				height: 51px;
+				width: 100%;
+				margin-bottom: 10px;
+			}
+			
+			#create-delete-container
+			{ 
+				height: 51px;
+				top: -130%;
+				width: 100%;
+				left: 0;
+				z-index: 2;
+				max-width: 475px;
+				border-radius: 0 0 10px 10px;
+				box-shadow: 0 4px 5px #222;
+			}
+			
+			#create-delete-container button
+			{
+				width: 50%;
+				float: left;
+				font-size: 95%;
+				padding: 10px 9px;
+				height: 45px;
+				font-weight: bold;
+				margin: 0;
+			}
+			
+			#create-task
+			{
+				background: #227922;
+				border: 1px solid #004400;
+				box-shadow: 0 7px 0 #004400; 
+				border-radius: 0 0 0 10px; 
+				border-right: none;
+				-webkit-transition: 0.1s;
+				-moz-transition: 0.1s;
+				-ms-transition: 0.1s;
+				-o-transition: 0.1s;
+				transition: 0.1s;
+			}
+			
+			#delete-all
+			{ 
+				background: #ba4343;
+				box-shadow: 0 7px 0 #770000; 
+				border: 1px solid #770000;
+				border-radius: 0 0 10px 0; 
+				border-left: none;
+				-webkit-transition: 0.1s;
+				-moz-transition: 0.1s;
+				-ms-transition: 0.1s;
+				-o-transition: 0.1s;
+				transition: 0.1s;
+			}
+			
+			.task-wrapper
+			{
+				padding: 4.9% 4.5%;
+				width: 100%;
+				height: auto;
+				background: #dadada;
+				margin: 25px 0 35px 0;
+				list-style-type: none;
+				border-radius: 5px 5px 18px 18px;
+				border-top: 15px solid deeppink;
+				box-shadow: 0 5px 11px 0 #323232;
+				opacity: 1;
+				font-family: "Trebuchet MS";
+				-webkit-transition: height 0.3s;
+				transition: height 0.3s;
+			}
+			
+			.task-wrapper li
+			{
+				display: table;
+				width: 100%;
+				position: relative;
+			}
+			
+			.description-container,
+			.edit-container
+			{ 
+				display: table-cell;
+				border-bottom: 1px solid #bbb;
+			}
+			
+			.description-container 
+			{
+				width: 100%;
+				position: relative;
+			}
+			
+			.description
+			{ 
+				font-weight: bold;
+				display: table-cell;
+				padding: 8px 3px 8px 0;
+				white-space: nowrap;
+			}
+			
+			.task-wrapper li:first-of-type .description
+			{
+				font-size: 105%;
+				color: deeppink;
+				text-shadow: 1px 0px 0 white, -1px 0px 0 white, 0 1px 0 white, 0 -1px 0 white;
+			}
+			
+			.desc-content
+			{
+				display: table-cell;
+				padding: 6px 6px 10px 5px;
+				text-align: ;justify;
+				line-height: 145%;
+				font-size: 105%;
+				width: 100%;
+				max-width: 150px;
+				word-wrap: break-word;
+				-webkit-transition: 0.25s;
+				-moz-transition: 0.25s;
+				-ms-transition: 0.25s;
+				-o-transition: 0.25s;
+				transition: 0.25s;
+			}
+			
+			.edit-container 
+			{ 
+				width: auto;
+				overflow: hidden;
+				text-align: right;
+				padding: 4.5px 0;
+			}
+			
+			.edit
+			{
+				background: #222;
+				font-size: 85%;
+				padding: 8px;
+			}
+			
+			.bar-container
+			{
+				width: 100%;
+				border: 2px solid white;
+				border-radius: 20px;
+				overflow: hidden;
+				margin: 4px 0;
+				height: auto;
+				text-align: center;
+				font-size: 90%;
+			}
+			
+			.description-wrapper:nth-child(3) .edit-container,
+			.description-wrapper:nth-child(3) .description-container
+			{ border-bottom: none; }
+			
+			.progress-bar
+			{ 
+				background: #ff4444;
+				height: 100%;
+				width: 0%;
+				padding: 5px 0;
+				text-align: center;
+				color: #9a1515;
+				-webkit-transition: width 1.5s, color 1.2s, background 1.2s;
+				-moz-transition: width 1.5s, color 1.2s, background 1.2s;
+				-ms-transition: width 1.5s, color 1.2s, background 1.2s;
+				-o-transition: width 1.5s, color 1.2s, background 1.2s;
+				transition: width 1.5s, color 1.2s, background 1.2s;
+			}
+			
+			.percent-complete
+			{ 
+				-webkit-transition: color 0.5s;
+				-moz-transition: color 0.5s;
+				-ms-transition: color 0.5s;
+				-o-transition: color 0.5s;
+				transition: color 0.5s; 
+			}
+			
+			.date
+			{
+				font-size: 88%;
+				color: dimgrey;
+				font-weight: normal; 
+				line-height: 135%;
+				display: block;
+			}
+			
+			li:nth-of-type(6) span.edit-container
+			{
+				border: none;
+				padding: 0;
+				position: relative;
+			}
+			
+			.input 
+			{
+				text-align: center; 
+				width: 100%;
+				display: none;
+				opacity: 0;
+				-webkit-transition: opacity 0.3s, border-radius 0.3s;
+				-moz-transition: opacity 0.3s, border-radius 0.3s;
+				-ms-transition: opacity 0.3s;
+				-o-transition: opacity 0.3s;
+				transition: opacity 0.3s, border-radius 0.3s;
+			}
+			
+			.save-check
+			{
+				height: 7px;
+				width: 7px;
+				border-radius: 50%;
+				position: absolute;
+				top: 48%;
+				left: 0;
+			}
+			
+			button.save
+			{ 
+				background: #4169e1;
+				font-size: 90%;
+				margin: 5px 3.5% 0 0;
+				padding: 9px 5%;
+			}
+			
+			button.delete
+			{ 
+				background: #bb3333;
+				font-size: 90%;
+				margin: 7px 0 0 0;
+				padding: 9px 5.5%;
+			}
+			
+			li.timestamp-wrapper
+			{ display: none; }
+			
+			#my-name 		
+			{ 
+				padding: 60px;
+				padding-top: 50px;
+				color: #9d9d9d;
+				text-align: center;
+				line-height: 160%;
+				width: 100%;
+				font-size: 80%;
+				height: 280px;
+			}
+			
+			#name 
+			{ 
+				display: inline-block; 
+				background: #494949; 
+				padding: 7px 13px;
+				border-radius: 20px;
+				margin: 4px;
+				color: #9d9d9d;
+			}
+			
+			#toast-wrapper
+			{
+				height: auto;
+				width: auto;
+				align-self: center;
+				margin: 0 auto 10vh auto;
+				padding: 0;
+				text-align: center;
+				position: fixed;
+				bottom: 0;
+				left: auto;
+				right: auto;
+				display: none;
+				opacity: 0;
+				z-index: 8;
+				-webkit-transition: opacity 0.6s ease-in-out;
+				-moz-transition: opacity 0.6s ease-in-out;
+				-ms-transition: opacity 0.6s ease-in-out;
+				-o-transition: opacity 0.6s ease-in-out;
+				transition: opacity 0.6s ease-in-out;
+			}
+			
+			#toast
+			{
+				font-size: 85%;
+				padding: 13px;
+				background: black;
+				display: inline-block;
+				color: white;
+				border-radius: 5px;
+				line-height: 145%;
+				box-shadow: 0 2px 4px 0 #333;
+			}
+			
+			#checker
+			{ display: none; }
+			
+			#info-container
+			{
+				height: 0%;
+				max-height: 164px;
+				width: 0px;
+				border-radius: 15px 32px 32px 15px;
+				position: fixed;
+				right: 6px;
+				bottom: 6px;
+				background: #000;
+				color: #eee;
+				z-index: 4;
+				overflow: hidden;
+				-webkit-transition: height 0.4s, width 0.4s, border-radius 0.4s, right 1s;
+				-moz-transition: height 0.4s, width 0.4s, border-radius 0.4s, right 1s;
+				-ms-transition: height 0.4s, width 0.4s, border-radius 0.4s, right 1s;
+				-o-transition: height 0.4s, width 0.4s, border-radius 0.4s, right 1s;
+				transition: height 0.4s, width 0.4s, border-radius 0.4s, right 1s;
+			}
+				
+			#info
+			{
+				height: 144px;
+				margin: 10px 64px 10px 10px;
+				padding: 7px 8px;
+				text-align: justify;
+				line-height: 150%;
+				border-radius: 5px;
+				opacity: 0;
+				overflow-y: auto;
+				font-size: 90%;
+				background: #202020;
+				font-family: "Trebuchet MS";
+				-webkit-transition: 0.5s;
+				-moz-transition: 0.5s;
+				-ms-transition: 0.5s;
+				-o-transition: 0.5s;
+				transition: 0.5s;
+			}
+			
+			#open-help-wrapper
+			{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+			}
+			
+			#open-help-wrapper
+			{
+				display: table;
+				width: 45px;
+				height: 45px;
+				text-align: center;
+				z-index: 5;
+				border-radius: 50%;
+				-webkit-transition: right 1s, -webkit-transform 0.5s;
+				-moz-transition: right 1s, -moz-transform 0.5s;
+				-ms-transition: right 1s, -ms-transform 0.5s;
+				-o-transition: right 1s, -o-transform 0.5s;
+				transition: right 1s, transform 0.5s;
+			}
+			
+			.scaleLarge
+			{
+				-webkit-transform: scale(1.0);
+				-moz-transform: scale(1.0);
+				-ms-transform: scale(1.0);
+				-o-transform: scale(1.0);
+				transform: scale(1.0);
+			}
+			
+			
+			.scaleUp
+			{
+				-webkit-transform: scale(0.8);
+				-moz-transform: scale(0.8);
+				-ms-transform: scale(0.8);
+				-o-transform: scale(0.8);
+				transform: scale(0.8);
+			}
+			
+			.scaleDown
+			{
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-ms-transform: scale(0);
+				-o-transform: scale(0);
+				transform: scale(0);
+			}
+			
+			#open-info
+			{
+				position: fixed;
+				bottom: 18px;
+				right: 18px;
+				height: 42px;
+				width: 42px;
+				z-index: 5;
+				display: inline-block !important;
+				background: #282828;
+				font-family: "Times New Roman", "Georgia";
+			}
+			
+			#open-help
+			{ 
+				background: #67aecb; 
+				color: #000 !important;
+				border: none !important;
+				font-family: "Trebuchet MS";
+			}
+			
+			#open-info,
+			#open-help
+			{
+				display: table-cell;
+				vertical-align: middle;
+				color: skyblue;
+				cursor: pointer;
+				border: 2.8px solid gainsboro;
+				border-radius: 50%;
+				box-shadow: 0 1px 10px #222;
+				font-weight: bolder;
+				font-size: 18px;
+				-webkit-transition: right 1s, background 0.2s;
+				-moz-transition: right 1s, background 0.2s;
+				-ms-transition: right 1s, background 0.2s;
+				-o-transition: right 1s, background 0.2s;
+				transition: right 1s, background 0.2s;
+			}
+			
+			#help-page
+			{
+				width: 100%;
+				height: 100%;
+				max-width: 475px;
+				position: fixed;
+				top: 0;
+				left: 0;
+				display: none;
+				background: #67aecb;
+				opacity: 0;
+				overflow-y: auto;
+				padding: 10px 5% 40px 5%;
+				z-index: 5;
+				line-height: 150%;
+				-webkit-transition: -webkit-transform 0.6s, opacity 0.5s, left 1s;
+				-moz-transition: -moz-transform 0.6s, opacity 0.5s, left 1s;
+				-ms-transition: -ms-transform 0.6s, opacity 0.5s, left 1s;
+				-o-transition: -o-transform 0.6s, opacity 0.5s, left 1s;
+				transition: transform 0.6s, opacity 0.5s, left 1s;
+			}
+			
+			#help-page ol
+			{ padding-left: 9%; }
+			
+			#help-page li
+			{ margin: 10px 0; }
+			
+			#number-of-tasks,
+			#number-of-completed,
+			#number-of-incompleted,
+			#number-of-almost-completed
+			{ color: skyblue; }
+			
+			#overall-progress
+			{ text-shadow: 0 0 1px white; }
+			
+			#comment
+			{
+				font-style: italic;
+				color: #777;
+			}
+			
+			#transparent-bg
+			{
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				display: none;
+				background: #111;
+				opacity: 0;
+				z-index: 3;
+				-webkit-transition: opacity 0.4s;
+				-moz-transition: opacity 0.4s;
+				-ms-transition: opacity 0.4s;
+				-o-transition: opacity 0.4s;
+				transition: opacity 0.4s;
+			}
+			
+			.fadeUp
+			{
+				-webkit-animation: fadeUp 0.6s ease;
+				-moz-animation: fadeUp 0.6s ease;
+				-ms-animation: fadeUp 0.6s ease;
+				-o-animation: fadeUp 0.6s ease;
+				animation: fadeUp 0.6s ease;
+			}
+			
+			@-webkit-keyframes fadeUp
+			{
+				from { margin-top: 100px; opacity: 0; }
+				to { margin-top: 25px; opacity: 1 }
+			}
+			@-moz-keyframes fadeUp
+			{
+				from { margin-top: 100px; opacity: 0; }
+				to { margin-top: 25px; opacity: 1 }
+			}
+			@-o-keyframes fadeUp
+			{
+				from { margin-top: 100px; opacity: 0; }
+				to { margin-top: 25px; opacity: 1 }
+			}
+			@keyframes fadeUp
+			{
+				from { margin-top: 100px; opacity: 0; }
+				to { margin-top: 25px; opacity: 1 }
+			}
+			
+			.slideUp
+			{
+				-webkit-animation: slideUp 1s forwards;
+				-moz-animation: slideUp 1s forwards;
+				-ms-animation: slideUp 1s forwards;
+				-o-animation: slideUp 1s forwards;
+				animation: slideUp 1s forwards;
+			}
+			
+			@-webkit-keyframes slideUp 
+			{
+				from { top: 0; }
+				to { top: -100%; }
+			}
+			@-moz-keyframes slideUp 
+			{
+				from { top: 0; }
+				to { top: -100%; }
+			}
+			@-o-keyframes slideUp 
+			{
+				from { top: 0; }
+				to { top: -100%; }
+			}
+			@keyframes slideUp 
+			{
+				from { top: 0; }
+				to { top: -100%; }
+			}
+			
+			.slideDown
+			{
+				-webkit-animation: slideDown 0.5s forwards;
+				-moz-animation: slideDown 0.5s forwards;
+				-ms-animation: slideDown 0.5s forwards;
+				-o-animation: slideDown 0.5s forwards;
+				animation: slideDown 0.5s forwards;
+			}
+			
+			@-webkit-keyframes slideDown 
+			{
+				0% { top: -100%; opacity: 0; }
+				70% { opacity: 0; }
+				100% { top: 0; opacity: 1; }
+			}
+			@-moz-keyframes slideDown 
+			{
+				0% { top: -100%; opacity: 0; }
+				70% { opacity: 0; }
+				100% { top: 0; opacity: 1; }
+			}
+			@-o-keyframes slideDown 
+			{
+				0% { top: -100%; opacity: 0; }
+				70% { opacity: 0; }
+				100% { top: 0; opacity: 1; }
+			}
+			@keyframes slideDown 
+			{
+				0% { top: -100%; opacity: 0; }
+				70% { opacity: 0; }
+				100% { top: 0; opacity: 1; }
+			}
+			
+			.save-check-anim
+			{
+				-webkit-animation: saveCheckAnim 1.8s infinite;‎
+				-moz-animation: saveCheckAnim 1.8s infinite;
+				-ms-animation: saveCheckAnim 1.8s infinite;
+				-o-animation: saveCheckAnim 1.8s infinite;‎
+				animation: saveCheckAnim 1.8s infinite;
+			}
+			
+			@-webkit-keyframes saveCheckAnim
+			{
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-moz-keyframes saveCheckAnim
+			{
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@-o-keyframes saveCheckAnim
+			{
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+			@keyframes saveCheckAnim
+			{
+				0% { opacity: 0; }
+				50% { opacity: 1; }
+				100% { opacity: 0; }
+			}
+
+
+			@media screen and (min-width: 770px)
+			{
+				#content-wrapper::-webkit-scrollbar
+				{ width: 8px; }
+				
+				#content-wrapper::-moz-scrollbar
+				{ width: 8px; }
+		
+				#content-wrapper::-webkit-scrollbar-track
+				{ background: #333; }
+				
+				#content-wrapper::-moz-scrollbar-track
+				{ background: #333; }
+		
+				#content-wrapper::-webkit-scrollbar-thumb
+				{
+					background: #878787;
+					border-radius: 8px;
+				}
+				
+				#content-wrapper::-moz-scrollbar-thumb
+				{
+					background: #71797e;
+					border-radius: 8px;
+				}
+
+				#info::-webkit-scrollbar
+				{ width: 8px; }
+				
+				#info::-moz-scrollbar
+				{ width: 8px; }
+		
+				#info::-webkit-scrollbar-track
+				{ background: transparent; }
+				
+				#info::-moz-scrollbar-track
+				{ background: transparent; }
+		
+				#info::-webkit-scrollbar-thumb
+				{
+					background: #333;
+					border-radius: 8px;
+				}
+				
+				#info::-moz-scrollbar-thumb
+				{
+					background: #333;
+					border-radius: 8px;
+				}
+
+				#help-page::-webkit-scrollbar
+				{ width: 8px; }
+				
+				#help-page::-moz-scrollbar
+				{ width: 8px; }
+		
+				#help-page::-webkit-scrollbar-track
+				{ background: transparent; }
+				
+				#help-page::-moz-scrollbar-track
+				{ background: transparent; }
+		
+				#help-page::-webkit-scrollbar-thumb
+				{
+					background: yellow;
+					border-radius: 8px;
+				}
+				
+				#help-page::-moz-scrollbar-thumb
+				{
+					background: yellow;
+					border-radius: 8px;
+				}
+			}
+			
+		</style>
+		
+		<!-- The Modal -->
+		<div id="modal-container">
+			<div id="modal">
+				<header id="modal-header">
+					<span id="modal-name">My Confirm</span> 
+					<span id="modal-action"></span>
+				</header>
+				<div id="modal-message"></div>
+				<div id="modal-buttons-wrapper">
+					<button id="modal-yes">YES</button>
+					<button id="modal-no">N0</button>
+				</div>
+			</div>
+		</div>
+    	<style type="text/css">
+			#modal-container
+			{
+				height: 100%;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.7);
+				position: fixed;
+				top: 0;
+				left: 0;
+				display: none;
+				justify-content: center;
+				opacity: 0;
+				z-index: 7; 
+				font-size: 14.6px;
+				-webkit-transition: opacity 0.2s;
+				-moz-transition: opacity 0.2s;
+				-ms-transition: opacity 0.2s;
+				-o-transition: opacity 0.2s;
+				transition: opacity 0.2s;
+			}
+			
+			#modal 
+			{
+				width: 380px; 
+				align-self: center;
+				height: auto;
+				max-width: 87.5%;
+				background: #eee;
+				border-radius: 90px; 
+				overflow: hidden;
+				color: #181818;
+				line-height: 140%;
+				opacity: 0;
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-ms-transform: scale(0);
+				-o-transform: scale(0);
+				transform: scale(0);
+				-webkit-transition: 0.15s;
+				-moz-transition: 0.15s;
+				-ms-transition: 0.15s;
+				-o-transition: 0.15s;
+				transition: 0.15s; 
+			}
+				
+			#modal header
+			{
+				font-size: 117.5%;
+				font-weight: bold;
+				max-height: 56px;
+				padding: 10px 20px 6px 20px;
+				background: inherit;
+				overflow: hidden; 
+				line-height: 200%;
+				border-radius: inherit;
+			}
+				
+			#modal-action
+			{ 
+				font-size: 85%;
+				font-weight: normal; 
+			}
+				
+			#modal-message
+			{ 
+			  	color: #505050;
+			  	overflow-y: auto;
+			  	height: auto;
+			  	width: 100%;
+			  	padding: 0 20px;
+			  	padding-bottom: 12px;
+			  	font-family: inherit;
+			  	font-size: inherit;
+			  	white-space: pre-wrap;
+			  	word-wrap: break-word;
+			}
+				
+			#modal-buttons-wrapper 
+			{ 
+				text-align: right;
+				padding: 11px 12px; 
+				background: inherit;
+				width: 100%;
+				border-radius: inherit; 
+			}
+				
+			#modal button
+			{
+				padding: 7px;
+				width: 70px;
+				background: #d0d0d0;
+				border: none;
+				margin: 0;
+				border-radius: 3px;
+				color: #222;
+				font-size: 110%;
+			}
+			
+			#modal button:hover
+			{ background: #555; }
+				
+			button#modal-yes
+			{ 
+				margin-right: 9px; 
+				color: #f00; 
+			}
+			
+			button#modal-no
+			{ color: royalblue; }
+				
+    	</style>
+		
+		<script type="text/javascript">
+
+// The selectors
+ID = document.getElementById.bind(document);
+CLASS = document.getElementsByClassName.bind(document);
+TAG = document.getElementsByTagName.bind(document);
+
+
+
+// The part-HTML
+newTask = '\
+	<ul id="task-wrapper" class="task-wrapper fadeUp js--task-wrapper">\
+		<!-- Task name -->\
+		<li class="description-wrapper">\
+			<span class="description-container js--description-container">\
+				<span class="description js--description"> Task \
+					<span class="js--task-index">1</span>: \
+				</span>\
+				<span class="desc-content js--task-name js--content"></span>\
+				<span class="desc-content input"> <input type="text" placeholder="Input task name" /> </span>\
+			</span>\
+			<span class="edit-container">\
+				<button class="edit js--edit-content">📝 Edit</button> \
+			</span>\
+		</li>\
+		<!-- Duration -->\
+		<li class="description-wrapper js--description-container">\
+			<span class="description-container">\
+				<span class="description js--description">🕙 Duration: </span>\
+				<span class="desc-content js--task-duration js--content"></span>\
+				<span class="desc-content input"> <input type="number" placeholder="duration in minutes" /> </span>\
+			</span>\
+			<span class="edit-container">\
+				<button class="edit js--edit-content">📝 Edit</button>\
+			</span>\
+		</li>\
+		<!-- Progress -->\
+		<li class="description-wrapper">\
+			<span class="description-container">\
+				<span class="description">📈 Track Progress: </span>\
+				<span class="desc-content input"> <input type="number" placeholder="in % (percentage)" /> </span>\
+			</span>\
+			<span class="edit-container">\
+				<button class="edit js--edit-content">📝 Edit</button>\
+			</span>\
+		</li>\
+		<!-- Bar -->\
+		<li>\
+			<div class="bar-container">\
+				<div class="progress-bar js--progress-bar">\
+					<span class="js--content js--percent-complete">0%</span>\
+				</div>\
+			</div>\
+		</li>\
+		<!-- Date -->\
+		<li class="description-wrapper">\
+			<span class="description date">📆 <i>Added: </i>\
+				<span class="js--task-date"></span>\
+			</span>\
+		</li>\
+		<!-- Delete -->\
+		<li class="description-wrapper">\
+			<span class="description edit-container">\
+				<span class="save-check js--save-check"></span>\
+				<button class="js--save save">💾 Save Task</button>\
+				<button class="js--delete delete">✂ Remove Task</button>\
+			</span>\
+		</li>\
+		<li class="timestamp-wrapper">\
+			<span class="js--timestamp"></span><br />\
+			<span class="js--hour">hh</span>:\
+			<span class="js--min">mm</span> - \
+			<span class="js--full-date">dd--mm--yyyy</span><br />\
+			<span class="js--get-hour-added"></span>:\
+			<span class="js--get-minute-added"></span>\
+		</li>\
+	</ul>';
+	
+	
+
+//Shows shadow inside modal if message text is long
+function modalMessageBoxShadow()
+{
+	if (ID("modal-message").scrollHeight > ID("modal-message").offsetHeight)
+		ID("modal-header").style.boxShadow = "0 6px 10px #ccc",
+		ID("modal-buttons-wrapper").style.boxShadow = "0 -6px 10px #ccc",
+		ID("modal-message").style.padding = "18px 20px";
+	else
+		ID("modal-header").style.boxShadow = "",
+		ID("modal-buttons-wrapper").style.boxShadow = "",
+		ID("modal-message").style.padding = "0 20px 15px 20px";
+	ID("modal-message").style.maxHeight = (window.innerHeight-140) + "px";
+}
+
+
+//Open modal function
+function openModal(modalMessage, actionTitle, modalName, modalType)
+{
+	ID("modal-name").innerText = modalName ? (actionTitle ? modalName+" -" : modalName):(modalType == 1 ? (actionTitle ? "Confirm -":"Confirm"):(actionTitle ? "Alert! -":"Alert!"));
+	ID("modal-action").innerText = actionTitle ? actionTitle:"";
+	ID("modal-message").innerText = modalMessage ? modalMessage:"";
+	ID("modal-container").style.display = "flex";
+	var modalTypeIsConfirm = (modalType == 1 || modalType == 0) ? modalType:0;
+	modalTypeIsConfirm = modalMessage ? modalTypeIsConfirm:0;
+	
+	setTimeout(function()
+	{
+		ID("modal-container").style.opacity = "1";
+		setTimeout(function() 
+		{ 
+			ID("modal").style.opacity = "1"; 
+			ID("modal").style.WebkitTransform = "scale(1)";
+			ID("modal").style.MozTransform = "scale(1)";
+			ID("modal").style.MsTransform = "scale(1)";
+			ID("modal").style.OTransform = "scale(1)";
+			ID("modal").style.transform = "scale(1)";
+			ID("modal").style.borderRadius = "5px";
+			modalMessageBoxShadow();
+		}, 100);
+	}, 50);
+
+	if (modalTypeIsConfirm)
+	{
+		ID("modal-yes").style.display = "inline",
+		ID("modal-no").innerHTML = "NO";
+		return true;
+	}
+	ID("modal-yes").style.display = "none";
+	ID("modal-no").innerHTML = "OK";
+	return false;
+}
+
+
+//closeModal() function closes modal only iff the "YES" or "NO" button or the black transparent-bg is clicked
+function closeModal(e)
+{
+	var userClickedYes;
+	var event = e ? e:event; //Checks misbehaviour in Firefox
+	if (event.target.id == "modal-container")
+		close(), userClickedYes = false;
+	else if (event.target.id == "modal-yes")
+		close(), userClickedYes = true;
+	else if (event.target.id == "modal-no")
+		close(), userClickedYes = false;
+		
+	function close()
+	{
+		ID("modal").style.WebkitTransform = "scale(0)";
+		ID("modal").style.MozTransform = "scale(0)";
+		ID("modal").style.MsTransform = "scale(0)";
+		ID("modal").style.OTransform = "scale(0)";
+		ID("modal").style.transform = "scale(0)";
+		ID("modal").style.opacity = "0";
+		ID("modal").style.borderRadius = "90px";
+		setTimeout(function() 
+		{
+			ID("modal-container").style.opacity = "0";
+			setTimeout(function()
+			{ ID("modal-container").style.display = "none"; }, 100);
+		}, 150);
+	}
+	return userClickedYes;
+}
+
+
+//The modal()
+function modal(modalMessage, actionTitle, modalName, modalType, takeAction)
+{
+	if (modalMessage && typeof arguments[arguments.length-1] == "function")
+		takeAction = arguments[arguments.length-1],
+		modalType = (modalType == 1 || modalType == 0) ? modalType:1;
+	else takeAction = null;
+
+	modalMessage = modalMessage ? modalMessage:"";
+	actionTitle = typeof actionTitle == "string" ? actionTitle:null;
+	modalName = typeof modalName == "string" ? modalName:null;
+	modalType = (modalType == 1 || modalType == 0) ? modalType:0; //"modalType == 1" is for "Confirm" while "modalType == 0" is for "Alert";
+
+	if (arguments.length == 1)
+		modalType = 0;
+
+	//Ensures modal is not active/open before calling "openModal()" function to avoid clashes/misbehaviours
+	var modalIsActive = ID("modal-container").style.display == "flex" ? true:false;
+
+	if (!modalIsActive)
+		openModal(modalMessage, actionTitle, modalName, modalType);
+	
+	var checking;
+	//Onclick event handler to handle closing of modal
+	ID("modal-container").onclick = function(e)
+	{
+		var modalTypeIsConfirm = modalType;
+		var userClickedYes = closeModal(e);
+		
+		if (takeAction)
+			if (modalTypeIsConfirm)
+				setTimeout(function()
+				{ takeAction(userClickedYes); }, 150);
+			else 
+				if (typeof userClickedYes == "boolean")
+					if (!userClickedYes)
+						setTimeout(function()
+						{ takeAction(); }, 150);
+	}
+}
+
+
+
+// The toast
+let hideToastTimeout = "Code by Power'f GOD⚡⚡", fadeToastTimeout;
+function toast(text)
+{
+  text = String(text);
+  //clears toast fade out timeout to ensure smooth hide behaviour in case of a double/simultaneous action
+  if (hideToastTimeout)
+  {
+    resetToastTransitionTiming(0.22);
+    ID("toast-wrapper").style.opacity = "0";
+    clearTimeout(hideToastTimeout);
+    clearTimeout(fadeToastTimeout);
+  }
+
+  ID("toast-wrapper").style.display = "inline-block";
+  setTimeout(() =>
+  {
+    ID("toast").innerHTML = text;
+    ID("toast-wrapper").style.opacity = "1";
+    fadeToastTimeout = setTimeout(() =>
+    {
+      resetToastTransitionTiming(0.85);
+      ID("toast-wrapper").style.opacity = "0";
+      hideToastTimeout = setTimeout(hideToast, 1100);
+      function hideToast()
+      {
+        resetToastTransitionTiming(0.25);
+        ID("toast-wrapper").style.display = "none"; 
+      }
+    }, 4000);
+  }, 500);
+  
+  function resetToastTransitionTiming(dur)
+  {
+    ID("toast-wrapper").style.WebkitTransition = `opacity ${dur}s ease-out`;
+    ID("toast-wrapper").style.MozTransition = `opacity ${dur}s ease-out`;
+    ID("toast-wrapper").style.MsTransition = `opacity ${dur}s ease-out`;
+    ID("toast-wrapper").style.OTransition = `opacity ${dur}s ease-out`;
+    ID("toast-wrapper").style.transition = `opacity ${dur}s ease-out`;
+  }
+}
+
+
+
+//Load content script
+this.onload = function() 
+{
+	page = ID("content-wrapper");
+	
+	windowOnresizeFunc();
+	
+	//Sets task top-border colour and text colour
+	borderColor = ['tomato', '#67aecb', 'goldenrod', 'forestgreen', 'deeppink', 
+					'darksalmon', '#7aad12', 'orange', 'purple', 
+					'#dd94a0', 'coral', '#12ad12', '#bd80bd', 'darkorange', 
+					'indianred', 'indigo'];
+	
+	borderColorIndex = 0;
+	
+	storageEnabled = navigator.cookieEnabled;
+	
+	counter = 0;
+	
+	//Kinda checks user device date to know if accurate since there is no server to get and update actual time
+	loadOnce = 0;
+	checkDeviceDate = function()
+	{
+		if (storageEnabled)
+			for (var i in localStorage)
+				if (Number(i))
+				{
+					ID("toast").innerHTML = localStorage[i];
+					if (!/js--timestamp/.test(ID("toast").innerHTML))
+						return null;
+					if (CLASS("js--timestamp")[0])
+						if ((sieveInt(CLASS("js--timestamp")[0].innerHTML)*1000) > (Date.now()+86400000) || Date.now() < 1524363239103) //Kinda an hack. :P Yeah.
+						{
+							ID("toast").innerHTML = "";
+							page.style.display = "none";
+							ID("not-supported-message").innerHTML = "Oops! 😞 \"My To-do📝 App\" found out your device date is inaccurate. Kindly go to your device date settings and adjust your clock.";
+							ID("not-supported").style.display = "table";
+							break;
+						}
+						else
+						{
+							ID("toast").innerHTML = "";							
+							page.style.display = "flex";
+							ID("not-supported-message").innerHTML = "";
+							ID("not-supported").style.display = "none";
+							if (loadOnce == 0)
+							{
+								welcome();
+								loadOnce = 1;
+							}
+							break;
+						}
+				} 
+				else continue;
+	}
+	checkDeviceDate();
+	document.addEventListener("visibilitychange", checkDeviceDate);
+
+
+ 
+	function addListeners()
+	{
+		//Adding events listeners to respective classes
+		for (var i=0; i<CLASS("js--edit-content").length; i++)
+			CLASS("js--edit-content")[i].addEventListener("click", edit);
+		for (var i=0; i<TAG("input").length; i++)
+			TAG("input")[i].addEventListener("input", swap),
+			TAG("input")[i].addEventListener("input", blink),
+			TAG("input")[i].addEventListener("click", borderRadius),
+			TAG("input")[i].addEventListener("blur", noBorderRadius),
+			TAG("input")[i].addEventListener("keyup", autoTack);
+		for (var i=0; i<CLASS("js--delete").length; i++)
+			CLASS("js--delete")[i].addEventListener("click", deleete);
+		for (var i=0; i<CLASS("js--save").length; i++)
+			CLASS("js--save")[i].addEventListener("click", save);
+	}
+	
+	
+	// Create Task function
+	ID("create-task").onclick = function()
+	{
+		var that = this;
+		
+		ID("tasks-container").insertAdjacentHTML("afterbegin", newTask);
+		if (CLASS("js--task-index")[1] == undefined)
+			CLASS("js--task-index")[0].innerHTML = 1;
+		else
+			CLASS("js--task-index")[0].innerHTML = Number(CLASS("js--task-index")[1].innerHTML)+1;
+		
+		addListeners();
+		
+		if (borderColorIndex < borderColor.length-1)
+			borderColorIndex++;
+		else
+			borderColorIndex = 0;
+		
+		CLASS("js--task-wrapper")[0].style.borderTopColor = borderColor[borderColorIndex];
+		CLASS("description")[0].style.color = borderColor[borderColorIndex];
+		
+		// Sets background of edit buttons to colour of top border
+		for (i=0; i<3; i++)
+			CLASS("js--task-wrapper")[0].getElementsByClassName("edit")[i].style.background = 
+							borderColor[borderColorIndex];
+		
+		//On mouse over button transition function
+		that.style.background = "#116811";
+		that.style.marginTop = "3px";
+		that.style.boxShadow = "0 4px 0 #004400";
+		setTimeout(function()
+		{
+			that.style.background = "#227922";
+			that.style.marginTop = "0";
+			that.style.boxShadow = "0 7px 0 #004400";
+		}, 180);
+		
+		//Resets delete all button to re-enable "Delete All" function and not "Clear Cache"
+		ID("delete-all").innerHTML = "✂ Remove All Tasks";
+		
+		//This is kinda a trick to take the page up so as to show the new task added
+		var scrollY = page.scrollY || page.scrollTop || page.pageYOffset;
+		if (scrollY > 170)
+		{
+			CLASS("js--edit-content")[0].innerHTML = "📝 Edit ";
+			CLASS("js--task-name")[0].style.display = "none";
+			CLASS("input")[0].style.display = "table-cell";
+			TAG("input")[0].focus();
+			setTimeout(function()
+			{ CLASS("input")[0].style.opacity = "1"; }, 700);
+		}
+		
+		//Did these to prevent time (date) bug
+		CLASS("js--get-minute-added")[0].innerHTML = "";
+	}
+	
+		
+	//'Delete all tasks' function
+	ID("delete-all").onclick = function()
+	{
+		var that = this;
+		
+		//On mouse over (tap) button color-transition functions
+		that.style.background = "#992222";
+		that.style.marginTop = "3px";
+		that.style.boxShadow = "0 4px 0 #770000";
+		setTimeout(function()
+		{
+			that.style.background = "#ba4343";
+			that.style.marginTop = "0";
+			that.style.boxShadow = "0 7px 0 #770000";
+		}, 180);
+		
+		// Checks if any task is present in cache
+		cached = false;
+		if (storageEnabled)
+			for (i in localStorage)
+				if (Number(i))
+				{
+					cached = true;
+					break;
+				} else continue;
+		
+		// Delete All
+		if (this.innerHTML == "✂ Remove All Tasks")
+		{
+			// Ensures there is/are (a) task(s) to be deleted by 'disabling' button 
+			if (ID("tasks-container").innerHTML == "")
+				return;
+			
+			tasksLen = CLASS("js--task-wrapper").length;
+			var aTaskIsNamed = false;
+			for (i=0; i<tasksLen; i++)
+				if (CLASS("js--task-name")[0].innerHTML != "")
+				{
+					aTaskIsNamed = true;
+					break;
+				}
+				else continue;
+			if (aTaskIsNamed)
+				modal("Are you sure you want to remove all tasks? (This will not delete any of your saved tasks, though.) 😉", "Remove All", "My To-do📝 App", removeAll);
+			else
+				removeAll(true);
+
+			function removeAll(yesRemoveAll)
+			{
+				if (yesRemoveAll)
+				{
+					setTimeout(function()
+					{
+						for (var i=0; i<tasksLen; i++)
+							CLASS("js--task-wrapper")[i].style.WebkitTransition = "opacity 0.8s",
+							CLASS("js--task-wrapper")[i].style.MozTransition = "opacity 0.8s",
+							CLASS("js--task-wrapper")[i].style.MsTransition = "opacity 0.8s",
+							CLASS("js--task-wrapper")[i].style.OTransition = "opacity 0.8s",
+							CLASS("js--task-wrapper")[i].style.transition = "opacity 0.8s",
+							CLASS("js--task-wrapper")[i].style.opacity = "0";
+						setTimeout(function()
+						{
+							ID("tasks-container").innerHTML = "";
+							ID("create-delete-container").style.position = "";
+							ID("create-delete-container").style.width = "100%";
+							if (cached)
+								that.innerHTML = "❌ Clear App Cache",
+								toast("- Tasks removed. <br />Reload app to restore.");
+						}, 800);
+					}, 400);
+				}
+				else
+					return null;
+			}
+		}
+		
+		if (!cached)
+			return;
+		// Clear Cache
+		if (this.innerHTML == "❌ Clear App Cache")
+		{
+			modal("⚠ Are you sure you want to clear❌ the app cache? (This will delete all your saved tasks from cache.) 😱", "Clear Cache", "My To-do📝 App", clearCache);
+			
+			function clearCache(clear)
+			{
+				if (clear)
+				{
+					// Clears app Web storage cache
+					if (storageEnabled)
+					{
+						for (i in localStorage)
+							if (!isNaN(Number(i)))
+								delete localStorage[i];
+							else continue;
+					}
+					else
+					{
+						toast("✖ Unable to clear cache. <br />Enable cookies in browser.");
+						return null;
+					}
+			
+					// Resets button to re-enable "Delete All" button function
+					setTimeout(function()
+					{
+						that.innerHTML = "✂ Remove All Tasks";
+						if (cached) toast("&minus; App cache cleared.");
+					}, 500);
+				}
+				else return null;
+			}
+		}
+	}
+	ID("name").innerHTML = "<b>@Power'f-GOD ⚡⚡</b>";
+		
+		
+		
+	// sieveInt function to seive out integers and decimals alike (used mainly in time conversion and caching)
+	function sieveInt(x)
+	{
+		seived = [];
+		for (var i=0, xLen=x.length; i<=xLen; i++)
+			if (isNaN(x[i]) && x[i] != "." && x[i] != ":")
+				continue;
+			else if (x[i] == ":")
+				seived.push(".");
+			else
+				seived.push(x[i]);
+		xInts = seived.join("");
+		return Number(xInts);	
+	}
+	
+	
+	
+	// Edit/Save function
+	function edit()
+	{
+		// Declaring identifiers and "that" variable due to scoping ishes
+		that = this;
+		
+		classParentLI = that.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode);
+		tagParentLI = that.parentNode.parentNode.getElementsByTagName.bind(that.parentNode.parentNode);
+		classParentUL = that.parentNode.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode.parentNode);
+		tagParentUL = that.parentNode.parentNode.parentNode.getElementsByTagName.bind(that.parentNode.parentNode.parentNode);
+		
+		// Edit function
+		if (this.innerHTML == "📝 Edit")
+		{
+			// The third child UL-LI element (Progress: ) in the HTML has no child element with class "js--content", that's why the following are done
+			if (classParentLI("js--content")[0] != undefined)
+			{
+				if (tagParentLI("input")[0].type == "number")
+				{
+					var check = sieveInt(classParentLI("js--content")[0].innerHTML);
+
+					// Checks and converts from hours to minutes
+					if (Number(check) == 0)
+						tagParentLI("input")[0].value = "";
+					else if (/hour/.test(classParentLI("js--content")[0].innerHTML))
+						tagParentLI("input")[0].value = ((Math.floor(check)*60) + ((check-Math.floor(check))*100)).toFixed(0);
+					else
+						tagParentLI("input")[0].value = check;
+				}
+				else
+					tagParentLI("input")[0].value = classParentLI("js--content")[0].innerHTML;
+	
+				classParentLI("js--content")[0].style.opacity = "0",
+				setTimeout(function() 
+				{
+					classParentLI("js--content")[0].style.display = "none";
+				}, 150);
+			}
+			else
+				tagParentLI("input")[0].value = sieveInt(classParentUL("js--percent-complete")[0].innerHTML);
+		
+			// Display input
+			setTimeout(function() 
+			{
+				classParentLI("input")[0].style.display = "table-cell";
+				setTimeout(function() 
+				{
+					classParentLI("input")[0].style.opacity = "1";
+					//Shows keyboard on tap of "Edit"
+					setTimeout (function() 
+					{
+						tagParentLI("input")[0].focus();
+					}, 100);
+				}, 50);
+			}, 180);
+			
+			// Mouse over function for "edit" button colour transition 
+			that.style.background = "#222";
+			setTimeout(function()
+			{
+				that.style.background = that.parentNode.parentNode.parentNode.style.borderTopColor;
+			}, 200);
+			
+			//Check this well: "Edit" is not same as "Edit ".
+			this.innerHTML = "📝 Edit ";
+		}
+		// "Edit "
+		else if (this.innerHTML == "📝 Edit ")
+		{
+			tagParentLI("input")[0].blur();
+			if (tagParentLI("input")[0].value.trim() != "")
+				setTimeout(function()
+				{
+					if (classParentLI("js--edit-content")[0].innerHTML == "📝 Edit ")
+						classParentLI("js--edit-content")[0].innerHTML = "📌 Tack";
+				}, 700);
+			else
+				that.innerHTML = "📝 Edit",
+				classParentLI("js--content")[0].innerHTML = "";
+		}
+		// Tack
+		else if (this.innerHTML == "📌 Tack")
+		{
+			var check;
+		
+			//Same as illustrated under 'edit()' above
+			if (classParentLI("js--content")[0] != undefined)
+			{
+				if (tagParentLI("input")[0].type == "number")
+				{
+					check = sieveInt(tagParentLI("input")[0].value);
+					var nounToUse;
+					// Checks and converts from minutes to hours
+					if (Number(check) <= 0)
+						classParentLI("js--content")[0].innerHTML = "";
+					else if (check < 60 && check > 0)
+					{
+						nounToUse = check.toFixed(0) > 1 ? " minutes":" minute";
+						classParentLI("js--content")[0].innerHTML = check.toFixed(0) + nounToUse;
+					}
+					else if (check > 59)
+					{
+						nounToUse = check.toFixed(0) == 60 ? " hour":" hours";
+						if (check%60 < 10)
+							classParentLI("js--content")[0].innerHTML = Math.floor(check/60) + ":0" + (check%60).toFixed(0) + nounToUse;
+						else
+							classParentLI("js--content")[0].innerHTML = Math.floor(check/60) + ":" + (check%60).toFixed(0) + nounToUse;
+					}
+				}	
+				else
+				{
+					classParentLI("js--content")[0].innerHTML = 
+									tagParentLI("input")[0].value.trim().slice(0,1).toUpperCase()+tagParentLI("input")[0].value.trim().slice(1, tagParentLI("input")[0].value.length);
+				}
+				classParentLI("input")[0].style.opacity = "0";
+				
+				setTimeout(function() 
+				{
+					classParentLI("input")[0].style.display = "none";
+				}, 150);
+			}
+			else
+			{
+				if (Number(tagParentLI("input")[0].value) > 100 || 
+								Number(tagParentLI("input")[0].value) < 0)
+				{
+					modal("Value out of range! \nInput number between 0 and 100.", "Range Overflow", "My To-do📝 App");
+					return null;
+				}
+				classParentLI("input")[0].style.opacity = "0";
+				
+				setTimeout(function() 
+				{
+					classParentLI("input")[0].style.display = "none";
+				}, 150);
+				classParentUL("js--percent-complete")[0].innerHTML = Number(tagParentLI("input")[0].value).toFixed(0) + "%";
+				classParentUL("js--progress-bar")[0].style.width = sieveInt(tagParentLI("input")[0].value) + "%";
+				
+				// Sets progress-bar colour
+				progress = sieveInt(classParentUL("js--progress-bar")[0].style.width);
+				bar = classParentUL("js--progress-bar")[0];
+				if (progress < 11)
+					bar.style.background = "#ff4444",
+					bar.style.color = "#771515";
+				else if (progress > 10 && progress < 31)
+					bar.style.background = "#ff7f50",
+					bar.style.color = "#882b00";
+				else if (progress > 30 && progress < 51)
+					bar.style.background = "#ffa500",
+					bar.style.color = "#996100";
+				else if (progress > 50 && progress < 71)
+					bar.style.background = "#caca00",
+					bar.style.color = "#777700";
+				else if (progress > 70 && progress < 91)
+					bar.style.background = "#86cc18",
+					bar.style.color = "#428410";
+				else
+					bar.style.background = "#10ab10",
+					bar.style.color = "#005b00";
+			}
+			
+			//Hides keyboard on tap of "Tack"
+			tagParentLI("input")[0].blur();
+			
+			// Displays task content/name
+			setTimeout(function() 
+			{
+				if (classParentLI("js--content")[0] != undefined)
+					classParentLI("js--content")[0].style.display = "table-cell";
+				setTimeout(function() 
+				{
+					if (classParentLI("js--content")[0] != undefined)
+						classParentLI("js--content")[0].style.opacity = "1";
+				}, 100);
+			}, 180)
+			
+			//On mouse over button color transition function
+			that.style.background = "#222";
+			setTimeout(function()
+			{
+				that.style.background = that.parentNode.parentNode.parentNode.style.borderTopColor;
+				that.innerHTML = "📝 Edit";
+			}, 200);
+		}
+		//For input box border radius hover effect 
+		borderRadius.call(tagParentLI("input")[0]);
+	}
+	//Function for input box border radius hover effect
+	function borderRadius()
+	{
+		var tagParentUL  = this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName.bind(this.parentNode.parentNode.parentNode.parentNode);
+		this.style.borderRadius = "0 0 7px 7px";
+		for (i=0; i<tagParentUL("input").length; i++)
+			if (this != tagParentUL("input")[i])
+				tagParentUL("input")[i].style.borderRadius = "0";
+			else continue;
+	}
+	function noBorderRadius()
+	{ this.style.borderRadius = "0"; }
+	
+	
+
+	function autoTack(e)
+	{
+		var evt = e || event;
+		if (evt.which == 13 || evt.keyCode == 13)
+			return edit.call(this.parentNode.parentNode.parentNode.getElementsByClassName("js--edit-content")[0]);
+			
+		// This is done for the 'Chrome' browser because of the nature on its type="number" input box keyboard
+		this.parentNode.parentNode.parentNode.getElementsByClassName("js--edit-content")[0].onfocus = function() 
+		{ edit.call(this); }
+	}
+	
+	
+	// This function enables 'saving' on user input
+	function swap()
+	{
+		if (this.parentNode.parentNode.parentNode.getElementsByTagName("input")[0].value.trim() != "")	
+			this.parentNode.parentNode.parentNode.getElementsByClassName("edit")[0].innerHTML = "📌 Tack";
+		else
+			//Also look carefully here. "Edit " is not equal to "Edit". This was done for a reason. I hope you understand. :|
+			this.parentNode.parentNode.parentNode.getElementsByClassName("edit")[0].innerHTML = "📝 Edit ";
+	}
+
+
+	//Save-check blink animation trigger function
+	function blink()
+	{
+		var that = this,
+			inputTagParentUL = that.parentNode.parentNode.parentNode.parentNode.getElementsByTagName.bind(that.parentNode.parentNode.parentNode.parentNode),
+			inputClassParentUL = that.parentNode.parentNode.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode.parentNode.parentNode); 
+		var classParentUL = that.parentNode.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode.parentNode),
+			tagParentUL = that.parentNode.parentNode.parentNode.getElementsByTagName.bind(that.parentNode.parentNode.parentNode);
+
+		//If 'this' == "Input" box, function runs this code block
+		if (this.type == "text" || this.type == "number")
+			if (this.value.trim() != "")
+			{
+				inputClassParentUL("js--save-check")[0].style.background = "red";
+				inputClassParentUL("js--save-check")[0].className = "save-check save-check-anim js--save-check";
+				this.removeEventListener("input", blink);
+			}
+			
+		//If 'this; == "Save" button, function runs this code block
+		if (this.className.indexOf("js--save") != -1)
+			if (classParentUL("js--content")[0].innerHTML != "")
+			{
+				for (i=0; i<classParentUL("input").length; i++)
+					if (classParentUL("input")[i].style.display == "table-cell")
+						return null;
+				classParentUL("js--save-check")[0].style.background = this.parentNode.parentNode.parentNode.style.borderTopColor;
+				classParentUL("js--save-check")[0].className = "save-check js--save-check";
+				for (i=0; i<tagParentUL("input").length; i++)
+					tagParentUL("input")[i].addEventListener("input", blink);
+			}
+	}
+
+	
+	function date()
+	{		
+		var	months =	['January', 'February', 'March', 'April', 'May',
+						'June', 'July', 'August', 'September', 'October',
+						'November', 'December'],
+			days =		['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+						'Thursday', 'Friday', 'Saturday'];
+			
+		//Getting current time/date
+		setDay = new Date().getDay(),
+		setDate = new Date().getDate(),
+		setMonth = new Date().getMonth(),
+		setHours = new Date().getHours(),
+		setMinutes = new Date().getMinutes(),
+		setYear = new Date().getYear(),
+		dateAdded = undefined;
+		
+		
+		// Sets month of the year
+		for (var i=0, monthsLen=months.length; i<monthsLen; i++)
+			if (setMonth == i)
+			{
+				setMonth = months[i];
+				break;
+			}
+			else continue;
+		
+		// Sets day of the week
+		for (var i=0, daysLen=days.length; i<daysLen; i++)
+			if (setDay == i)
+			{
+				setDay = days[i];
+				break;
+			}
+			else continue;
+		
+		if (setMinutes < 10)
+			setMinutes = "0" + setMinutes;
+			
+		// Checks if AM or PM then sets hours appropriately
+		if (setHours == 0)
+			setHours = 12,
+			setMinutes = setMinutes + "AM";
+		else if (setHours > 0 && setHours < 12)
+			setHours = setHours,
+			setMinutes = setMinutes + "AM";
+		else if (setHours > 12)
+			setHours = (setHours - 12),
+			setMinutes = setMinutes + "PM";
+		else if (setHours == 12)
+			setHours = setHours,
+			setMinutes = setMinutes + "PM";
+			
+		if (setHours < 10)
+			setHours = "0" + setHours;
+		
+		if (setDate < 10)
+			setDate = "0" + setDate;
+		
+		dateAdded = setDay+" "+setDate+" "+setMonth+ /*, 20"+String(setYear).slice(1,3)+*/ " at "+setHours+":"+setMinutes;
+	}
+	
+
+	
+	// The date function
+	function stampTimeOn(that)
+	{
+		//Using "strict mode" in this function to prevent global variables clash. You grab. ;)
+		"use strict";
+		
+		//Calling the date() function so as to get the current time/date variables when function was called (or task was added)
+		date();
+		
+		var classParentUL = that.parentNode.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode.parentNode);
+
+		//Setting timestamps on when this function was initially called
+		var	then = Number((Date.now()/1000).toFixed(0)),
+			now = Number((Date.now()/1000).toFixed(0)),
+			hourThen = setHours,
+			minuteThen = setMinutes,
+			fullDateThen = dateAdded,
+			taskAddHour = Number(classParentUL("js--get-hour-added")[0].innerHTML),
+			taskAddMinute = Number(classParentUL("js--get-minute-added")[0].innerHTML);
+		
+		//Assigning timestamp values of none-displaying (hidden) "references" in HTML to the following variables which will be used later in this function
+		var timestamp = classParentUL("js--timestamp")[0].innerHTML,
+			hourstamp = classParentUL("js--hour")[0].innerHTML,
+			minutestamp = classParentUL("js--min")[0].innerHTML,
+			fullDatestamp = classParentUL("js--full-date")[0].innerHTML;
+		
+		//In a case where page is reloaded/refreshed and timestamps have been initially attached to references, this code retrieves references values and sets timestamps again
+		if (timestamp != "" && !isNaN(timestamp))
+			then = Number(timestamp);
+		if (hourstamp != "" && sieveInt(hourstamp))
+			hourThen = hourstamp;
+		if (minutestamp != "" && sieveInt(minutestamp))
+			minuteThen = minutestamp;
+		if (fullDatestamp != "" && fullDatestamp)
+			fullDateThen = fullDatestamp;
+		
+		//Setting time
+		var timeCheck = "Just now",
+			seconds = now - then,
+			minutes = Math.floor(seconds/60),
+			hours = Math.floor(seconds/3600);
+
+		//This function is for a case when the browser tab is inactive and then later gains activity. I found out script doesn't run (timer is paused) when inactive, so this, I believe, fixes that. :)
+		var resetTime = function()
+		{
+			if (document.visibilityState == "visible")
+			{
+				now = Number((Date.now()/1000).toFixed(0));
+				seconds = now - then;
+				minutes = Math.floor(seconds/60);
+				hours = Math.floor(seconds/3600);
+			}
+		}
+		
+		//Hours timer
+		var hourCheck = setInterval(function()
+		{ hours++; }, 3600000);
+	
+		//Minutes timer
+		var minuteCheck = setInterval(function()
+		{ minutes++; }, 60000);
+	
+		var itsTime;
+		//Seconds timer
+		var secondCheck = setInterval(function()
+		{
+			//Calling resetTime() function as soon as page is visible and is active (in other words when page receives focus)
+			document.addEventListener("visibilitychange", resetTime, false);
+
+			seconds++;
+			
+			itsTime = (((hours+taskAddHour)*60) + ((minutes - (hours*60))+taskAddMinute))*60;
+			
+			if (seconds < 60+3)
+				timeCheck = "Just now";
+			else if (itsTime > 24*3600 && itsTime < 24*7200)
+				timeCheck = "Yesterday at " + hourThen+":"+minuteThen;
+			else if (seconds < 3600+3)
+				timeCheck = minutes < 2 ? (minutes+" minute ago"):(minutes+ " minutes ago");
+			else if (hours < 6)
+			{
+				var minLessThan30 = (seconds - hours*3600);
+				if (minLessThan30 < 1800)
+					timeCheck = hours + " hours ago";
+				else
+					timeCheck = "At about "+ (hours+1) +" hours ago";
+				if (hours < 2 && minLessThan30 < 1800)
+					timeCheck = "1 hour ago";
+			}
+			else if (itsTime < 24*3600)
+				timeCheck = "Today at " + hourThen+":"+minuteThen;
+			else if (itsTime < 24*7200)
+				timeCheck = "Yesterday at " + hourThen+":"+minuteThen;
+			else if (itsTime < 24*10800)
+				timeCheck = "2 days ago at " + hourThen+":"+minuteThen;
+			else
+				timeCheck = fullDateThen;
+			
+			//Stops timers after 3 days from time of adding task to conserve resources
+			if (seconds > 262800)
+			{
+				clearInterval(hourCheck);
+				clearInterval(minuteCheck);
+				clearInterval(secondCheck);
+			}
+			classParentUL("js--task-date")[0].innerHTML = timeCheck;
+		}, 1000);
+	}
+	
+	
+	//Save
+	function save()
+	{
+		storageEnabled = navigator.cookieEnabled;
+		
+		that = this;
+		
+		classParentUL = that.parentNode.parentNode.parentNode.getElementsByClassName.bind(that.parentNode.parentNode.parentNode);
+		tagParentUL = that.parentNode.parentNode.parentNode.getElementsByTagName.bind(that.parentNode.parentNode.parentNode);
+		
+		// On mouse over color transition 
+		that.style.background = "#0129a1";
+		setTimeout(function()
+		{
+			that.style.background = "#4169e1";
+		}, 200);
+		
+		taskName = classParentUL("js--task-name")[0].innerHTML;
+		
+		// Ensures user inputs task name
+		if (taskName == "" && tagParentUL("input")[0].value.trim() == "")
+		{
+			modal("Name your task.", "Unnamed Task", "My To-do📝 App");
+			return null;
+		}
+		else if (taskName == "" && tagParentUL("input")[0].value.trim() != "")
+		{
+			modal("📌 Tack your task name.", "Untacked Name", "My To-do📝 App");
+			return null;
+		}
+
+		//Checks to ensure user tacks values before saving
+		for (i=0; i<3; i++)
+			if (classParentUL("input")[i].style.display == "table-cell")
+			{
+				toast("📌 Tack individual input values before saving task.");
+				setTimeout(function()
+				{
+					for (i=0; i<classParentUL("js--edit-content").length; i++)
+						if (classParentUL("input")[i].style.display == "table-cell")
+							classParentUL("js--edit-content")[i].innerHTML = "📌 Tack";
+						else continue;
+				}, 2000);
+				return null;
+			}
+		
+		if (storageEnabled)
+			for (var i in localStorage)
+				if (i == classParentUL("js--task-index")[0].innerHTML)
+				{
+					if (classParentUL("js--timestamp")[0].innerHTML == "")
+					{
+						ID("toast").innerHTML = localStorage[i];
+						modal("A task named \"" + ID("toast").getElementsByClassName("js--task-name")[0].innerHTML + "\" already exists in storage with the same task number, " + i + 
+								 ". Do you want to overwrite it and save the current task?",
+								"Overwrite", "My To-do📝 App", 1,
+							function(yesOverwrite) 
+							{ 
+								if (yesOverwrite)
+								{
+									delete localStorage[i]; 
+									goAhead.bind(that)();
+								}
+							});
+						return null;
+					}
+				} else continue;
+	
+		goAhead.bind(that)();
+		function goAhead()
+		{
+			//Calling and setting the 'this' value of blink() function
+			blink.bind(this)();
+			
+			if (!storageEnabled)
+				return toast("✖ Unable to save task. <br /> Enable cookies in browser then retry.");
+			
+			//Checks if task had been in memory
+			taskAlreadySaved = false;
+			if (classParentUL("js--get-minute-added")[0].innerHTML != "")
+				taskAlreadySaved = true;
+			
+			if (!taskAlreadySaved)
+			{
+				date();
+				//Stamping/Attaching timestamps to non-displaying (hidden) references in HTML
+				classParentUL("js--hour")[0].innerHTML = setHours;
+				classParentUL("js--min")[0].innerHTML = setMinutes;
+				classParentUL("js--full-date")[0].innerHTML = dateAdded;
+				classParentUL("js--timestamp")[0].innerHTML = Number((Date.now()/1000).toFixed(0));
+				classParentUL("js--get-hour-added")[0].innerHTML = new Date().getHours();
+				classParentUL("js--get-minute-added")[0].innerHTML = new Date().getMinutes();
+				//Calling the stampTimeOn() function and setting the 'this' value accordingly [to each task created]
+				stampTimeOn(this);
+			}
+		
+			// Enables task deletion
+			classParentUL("js--delete")[0].innerHTML = "❌ Delete Task";
+
+			taskIndex = classParentUL("js--description")[0].innerHTML;
+			task = '<ul id="task-wrapper" class="task-wrapper fadeUp js--task-wrapper">' + String(that.parentNode.parentNode.parentNode.innerHTML) + "</ul>";
+		
+			//Checks to see if user made any changes
+			function escapeString(string)
+			{
+				return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+			}
+			taskName = escapeString(classParentUL("js--description-container")[0].innerHTML);
+			taskDuration = escapeString(classParentUL("js--description-container")[1].innerHTML);
+			taskPercentComplete = escapeString(classParentUL("js--progress-bar")[0].innerHTML);
+			sameTaskName = new RegExp(taskName);
+			sameTaskDuration = new RegExp(taskDuration);
+			sameTaskPercentComplete = new RegExp(taskPercentComplete);
+			for (i in localStorage)
+				if (Number(i) == classParentUL("js--task-index")[0].innerHTML)
+				{
+					if (sameTaskName.test(localStorage[i]) && sameTaskDuration.test(localStorage[i]) && sameTaskPercentComplete.test(localStorage[i]))
+						return toast("❓ No change made since last save.");
+					break;
+				} else continue;
+			
+			taskExists = new RegExp(taskIndex);
+			
+			
+			// Loop to check if task already exists in storage and replaces or overwrites
+			for (i in localStorage)
+				if (taskExists.test(localStorage.getItem(i)))
+				{
+					//Toasts incase the immediate block of code doesn't run in a storage-restricted browser
+					toast("&minus; Oops! Something went wrong. Could not save task.");
+					localStorage.setItem(i, String(task));
+					if (localStorage[i] != undefined)
+						return toast("Changes saved successfully.");
+				} else continue;
+			
+			// Convert number to string as localStorage supports only strings
+			stringedTaskIndex = String(sieveInt(taskIndex));
+			
+			//Toasts incase the immediate block of code doesn't run in a storage-restricted browser
+			toast("&minus; Oops! Something went wrong. Could not save task.");
+			// Ultimately creates and saves new task
+			localStorage.setItem(stringedTaskIndex, String(task));
+			if (localStorage.getItem(stringedTaskIndex) != undefined)
+				toast("✔ Task saved successfully.");
+		}
+	}
+	
+	
+	// The delete function (Neglect the variable name. There is a 'delete' keyword in JS. :)
+	function deleete()
+	{
+		var that = this;
+		classParentUL = this.parentNode.parentNode.parentNode.getElementsByClassName.bind(this.parentNode.parentNode.parentNode);
+		
+		//Mouse over button color transition effect
+		that.style.background = "#770000"
+		setTimeout(function()
+		{
+			that.style.background = "#bb3333";
+		}, 200);
+		
+		// If "Delete"
+		if (this.innerHTML == "❌ Delete Task")
+		{
+			modal("😱 Are you sure you want to delete❌ this task, \""+classParentUL("js--task-name")[0].innerHTML+"\"?", "Delete Task", "My To-do📝 App", deleteTask);
+			
+			function deleteTask(yesDelete)
+			{
+				if (yesDelete)
+				{
+					setTimeout(function()
+					{
+						okay();
+						if (storageEnabled)
+							for (i in localStorage)
+								if (i == classParentUL("js--task-index")[0].innerHTML)
+								{
+									delete localStorage[i];
+									toast("&minus; Task deleted.");
+									break;
+								}
+								else continue;
+					}, 600);
+				}
+				else 
+					return null;
+			}
+		}
+		// If "Remove"
+		if (this.innerHTML == "✂ Remove Task")
+			if (classParentUL("js--task-name")[0].innerHTML != "")
+			{
+				modal("Are you sure you want to remove❌ this task \""+classParentUL("js--task-name")[0].innerHTML+"\"?", "Remove Task", "My To-do📝 App", removeTask);
+				
+				function removeTask(userClickedYes)
+				{
+					setTimeout(function()
+					{
+						if (userClickedYes)
+							okay();
+						else
+							return null;
+					}, 600);
+				}
+			}
+			else okay();
+		
+		// Fade-out delete function
+		function okay()
+		{
+			that.parentNode.parentNode.parentNode.style.WebkitTransition = "opacity 0.85s";
+			that.parentNode.parentNode.parentNode.style.MozTransition = "opacity 0.85s";
+			that.parentNode.parentNode.parentNode.style.MsTransition = "opacity 0.85s";
+			that.parentNode.parentNode.parentNode.style.OTransition = "opacity 0.85s";
+			that.parentNode.parentNode.parentNode.style.opacity = "0";
+			setTimeout(function()
+			{
+				that.parentNode.parentNode.parentNode.parentNode.removeChild(that.parentNode.parentNode.parentNode);
+				if (CLASS("js--task-wrapper")[0] == null)
+					ID("tasks-container").innerHTML = "";
+				if (CLASS("js--task-wrapper")[1] == null)
+					ID("create-delete-container").style.position = "";
+			}, 600);
+		}
+	}
+	
+	
+	// Fixes "Create"/"Remove" buttons at the top of screen on scroll of screen
+	var scrollPosition, availableWidth4FixedButtons;
+	var initialPos, finalPos, setPos;
+	
+	page.onscroll = function()
+	{
+		scrollPosition = page.scrollY || page.clientY || page.scrollTop || page.pageYOffset;
+		
+		//Toggle between hiding/showing "Add/Remove Task" buttons on user page scroll
+		initialPos = scrollPosition;
+		
+		//for touchscreens: avoid flicker of "Add/Remove Task" buttons on touch move of screens
+		this.ontouchmove = clearSetPos;
+		this.ontouchstart = clearSetPos;
+		
+		function clearSetPos()
+		{ clearTimeout(setPos); }
+		
+	    setPos = setTimeout(function() 
+		{
+			finalPos = scrollPosition;
+			availableWidth4FixedButtons = ((93 / 100) * pageWidth);
+		}, 200);
+
+
+		//ID('log').innerHTML = finalPos - initialPos;
+
+		if (scrollPosition > 160)
+		{
+			ID("create-delete-container").style.width = availableWidth4FixedButtons+"px";
+			ID("create-delete-container").style.left = (((3.5 / 100) * pageWidth) + (overflowWidth/2)) +"px";
+
+			if (finalPos >= initialPos)
+				ID("create-delete-container").className = "slideDown",
+				ID("create-delete-container").style.position = "fixed";
+			else
+				ID("create-delete-container").className = "slideUp";
+		}
+		else if (scrollPosition < 130)
+		{
+			ID("create-delete-container").style.width = "100%";
+			ID("create-delete-container").style.left = "0";
+			ID("create-delete-container").className = "";
+			ID("create-delete-container").style.position = "";
+		}
+	}
+
+
+	//The following two functions are for the info container and page resize effect
+	ID("info-container").style.height = "0%";
+	ID("info-container").style.width = "0";
+	window.onresize = windowOnresizeFunc;
+	function windowOnresizeFunc()
+	{
+		modalMessageBoxShadow();
+		overflowWidth = window.innerWidth > 475 ? (window.innerWidth - 475) : 0;
+		pageWidth = window.innerWidth > 475 ? (window.innerWidth - overflowWidth) : window.innerWidth;
+		availableWidthForInfo = window.innerWidth > 475 ? ((((pageWidth - 12) / pageWidth) - (overflowWidth / window.innerWidth)) * 100) : (((pageWidth - 12) / pageWidth) * 100);
+		if (ID("info-container").style.height != "0%")
+			ID("info-container").style.width = availableWidthForInfo + "%";
+		if (window.innerWidth > 475)
+		{
+			page.style.left = (overflowWidth / 2)+"px";
+			ID("help-page").style.left = (overflowWidth / 2)+"px";
+			ID("create-delete-container").style.left = (overflowWidth / 2)+"px";
+			ID("open-info").style.right = ((overflowWidth / 2) + 18)+"px";
+			ID("info-container").style.right = ((100 - availableWidthForInfo) / 2)+"%";
+			if (ID("info-container").style.height != "0%")
+				ID("info-container").style.width = availableWidthForInfo + "%";
+		}
+		else
+		{
+			page.style.left = "0";
+			ID("help-page").style.left = "0";
+			ID("create-delete-container").style.left = "0";
+			ID("open-info").style.right = "18px";
+			ID("info-container").style.right = "6px";
+			if (ID("info-container").style.height != "0%")
+				ID("info-container").style.width = availableWidthForInfo + "%";
+		}
+
+		if (scrollPosition > 160)
+		{
+			availableWidth4FixedButtons = ((93 / 100) * pageWidth);
+			ID("create-delete-container").style.width = availableWidth4FixedButtons+"px";
+			ID("create-delete-container").style.left = (((3.5 / 100) * pageWidth) + (overflowWidth/2)) +"px";
+		}
+		else if (scrollPosition < 125)
+		{
+			ID("create-delete-container").style.width = "100%";
+			ID("create-delete-container").style.left = "0";
+		}
+	}
+	ID("open-info").onclick = function()
+	{
+		//Info button colour transition
+		if (this.id == "open-info")
+		{
+			ID("open-info").style.background = "#616161";
+			setTimeout(function() 
+			{ ID("open-info").style.background = "#282828"; }, 200)
+		}
+		
+		//Helps to close "help page"
+		if (this.innerHTML == "×" || this.id == "help-page")
+		{
+			ID("open-info").innerHTML = "i";
+			ID("help-page").className = "scaleUp";
+			ID("help-page").style.opacity = "0";
+			setTimeout(function()
+			{ ID("help-page").style.display = "none"; }, 500);
+			return null;
+		}
+		
+		numberOfTasks = CLASS("js--task-wrapper").length;
+		ID("number-of-tasks").innerHTML = numberOfTasks;
+		ID("number-of-completed").innerHTML = 0;
+		ID("number-of-incompleted").innerHTML = 0;
+		ID("number-of-almost-completed").innerHTML = 0;
+		ID("overall-progress").innerHTML = 0;
+		overallProgress = 0;
+		total = 0;
+		
+		//Calculating numbers of...
+		for (i=0; i<numberOfTasks; i++)
+		{
+			if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) == 100)
+				ID("number-of-completed").innerHTML = Number(ID("number-of-completed").innerHTML)+1;
+			else if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 50)
+				ID("number-of-incompleted").innerHTML = Number(ID("number-of-incompleted").innerHTML)+1;
+			else if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 100)
+				ID("number-of-almost-completed").innerHTML = Number(ID("number-of-almost-completed").innerHTML)+1;
+			
+			total += sieveInt(CLASS("js--percent-complete")[i].innerHTML)
+			overallProgress = (total/numberOfTasks).toFixed(1)+"%";
+			ID("overall-progress").innerHTML = overallProgress;			
+		}
+		
+		//Overall progress colour change and comments
+		overallProgress = sieveInt(overallProgress);
+		if (overallProgress < 20)
+		{
+			ID("emoji-mood").innerHTML = "😞";
+			ID("overall-progress").style.color = "red";
+			for (i=numberOfTasks-1; i>-1; i--)
+				if (CLASS("js--task-name")[i].innerHTML == "" && CLASS("js--percent-complete")[i].innerHTML == "0%")
+				{
+					ID("comment").innerHTML = "I guess Task "+CLASS("js--task-index")[i].innerHTML+" is without name and is at 0% progress. Do attend to it.";
+					break;
+				} 
+				else if (CLASS("js--percent-complete")[i].innerHTML == "0%")
+				{
+					ID("comment").innerHTML = "You should try making some progress with Task "+ CLASS("js--task-index")[i].innerHTML +", \""+ CLASS("js--task-name")[i].innerHTML +"\".";
+					break;
+				}
+				else if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 20)
+				{
+					ID("comment").innerHTML = "I suggest you again attend to Task "+ CLASS("js--task-index")[i].innerHTML +", \""+ CLASS("js--task-name")[i].innerHTML +"\", and make some more progress with it.";
+					break;
+				}
+				else
+				{
+					ID("comment").innerHTML = "Not much progress has been made so far. Try giving time to completing your tasks.";
+					continue;
+				}
+		}
+		else if (overallProgress < 50)
+		{
+			ID("emoji-mood").innerHTML = "😐";
+			ID("overall-progress").style.color = "#ffa500";
+			for (i=numberOfTasks-1; i>-1; i--)
+				if (CLASS("js--timestamp")[i].innerHTML != "" && (((Date.now()/1000) - sieveInt(CLASS("js--timestamp")[i].innerHTML)) > 172800 && sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 30))
+				{
+					ID("comment").innerHTML = "Task "+ CLASS("js--task-index")[i].innerHTML +", \""+ CLASS("js--task-name")[i].innerHTML +"\", has been active for over two days and is begging for completion. Do attend to it asap.";
+					break;
+				}
+				else if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 20)
+				{
+					ID("comment").innerHTML = "Little progress made so far. I suggest you attend to Task "+ CLASS("js--task-index")[i].innerHTML +", \""+ CLASS("js--task-name")[i].innerHTML +"\".";
+					break;
+				}
+				else
+				{
+					ID("comment").innerHTML = "Little progress made so far. Do give more attention to your tasks.";
+					continue;
+				}
+		}
+		else if (overallProgress < 70)
+		{
+			ID("emoji-mood").innerHTML = "😊";
+			ID("overall-progress").style.color = "#caca00";
+			for (i=numberOfTasks-1; i>-1; i--)
+				if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 70)
+					if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) > 30)
+					{
+						ID("comment").innerHTML = "You are at the middle of almost completing Task "+ CLASS("js--task-index")[i].innerHTML +", \""+ CLASS("js--task-name")[i].innerHTML +"\". Do attend to it.";
+						break;
+					}
+					else
+					{
+						ID("comment").innerHTML = "You are making slight progress. You can do it better. ;)";
+						break;
+					}
+		}
+		else if (overallProgress < 90)
+		{
+			ID("emoji-mood").innerHTML = "😁👍";
+			ID("overall-progress").style.color = "#86cc18";
+			ID("comment").innerHTML = "You are making good progress. Keep it up."
+			for (i=numberOfTasks-1; i>-1; i--)
+				if (sieveInt(CLASS("js--percent-complete")[i].innerHTML) < 30)
+				{
+					ID("comment").innerHTML = "You are making good progress. Keep it up. Don't forget to attend to Task "+ CLASS("js--task-index")[i].innerHTML +". Well done.";
+					break;
+				}	
+		}
+		else
+		{
+			ID("emoji-mood").innerHTML = "😄✌👍";
+			ID("overall-progress").style.color = "#00af00";
+			ID("comment").innerHTML = "You've made remarkable progress. You are dedicated to your work. Good job. :)"
+		}
+		
+		for (i=numberOfTasks-1; i>-1; i--)
+			if (CLASS("js--task-name")[i].innerHTML == "" && sieveInt(CLASS("js--percent-complete")[i].innerHTML) > 0)
+			{
+				ID("comment").innerHTML = "You have not named Task "+ CLASS("js--task-index")[i].innerHTML +". Do name or remove it.";
+				break;
+			}
+			else continue;
+		
+		if (ID("tasks-container").innerHTML == "")
+			ID("comment").innerHTML = "Add a task.",
+			ID("emoji-mood").innerHTML = "";
+		
+		//Toggle between hide/show info
+		if (ID("info-container").style.height == "0%")
+		{
+			ID("info-container").style.borderRadius = "15px 32px 32px 15px";
+			ID("info-container").style.width = availableWidthForInfo + "%";
+			ID("info-container").style.height = "60%";
+			ID("transparent-bg").style.display = "block";
+			setTimeout(function()
+			{ ID("transparent-bg").style.opacity = "0.6"; }, 50)
+			setTimeout(function()
+			{ 
+				ID("info").style.opacity = "1"; 
+				ID("open-help-wrapper").className = "scaleUp";
+			}, 250);
+		}
+		else
+		{
+			ID("info").style.opacity = "0";
+			ID("info-container").style.width = "0";
+			ID("info-container").style.height = "0%";
+			ID("info-container").style.borderRadius = "5px";
+			ID("open-help-wrapper").className = "scaleDown";
+			setTimeout(function()
+			{ ID("transparent-bg").style.opacity = "0"; }, 100);
+			setTimeout(function()
+			{ ID("transparent-bg").style.display = "none"; }, 475);
+		}
+	}
+	ID("transparent-bg").onclick = function()
+	{ ID("open-info").onclick.bind(this)(); };
+	//Opens "help page"
+	ID("open-help").onclick = function()
+	{
+		that = this;
+		ID("open-help-wrapper").className = "scaleLarge";
+		this.style.background = "skyblue";
+		setTimeout(function()
+		{
+			setTimeout(function()
+			{ ID("open-info").innerHTML = "×"; }, 600);
+			that.style.background = "#67aecb";
+			ID("open-help-wrapper").className = "scaleUp";
+		}, 150);
+		if (ID("help-page").className == "scaleUp")
+		{
+			ID("help-page").style.display = "block";
+			setTimeout(function()
+			{
+				ID("help-page").className = "scaleLarge";
+				ID("help-page").style.opacity = "0.95";
+			}, 450);
+		}
+	}
+	ID("help-page").onclick = function()
+	{ ID("open-info").onclick.bind(this)(); }
+	
+	
+	// Load saved tasks function
+	function loadHistory()
+	{	
+		taskArr = [];
+		storeLen = localStorage.length;
+		
+		if (!storageEnabled)
+			return null;
+			
+		for (i in localStorage)
+			if (!isNaN(Number(i)))
+			{
+				if (localStorage.getItem(i) != undefined && /task-wrapper/.test(localStorage.getItem(i)))
+					taskArr[Number(i)] = localStorage.getItem(i);
+			}
+			else continue;
+		
+		ID("tasks-container").innerHTML = "";
+		for (i=0; i<taskArr.length; i++)
+			if (taskArr[i] != undefined)
+				ID("tasks-container").insertAdjacentHTML("afterbegin", taskArr[i]);
+			else continue;
+		
+		// Reseting task top border color index
+		if (CLASS("js--task-wrapper")[0])
+		{
+			refNum = Number(CLASS("js--task-index")[0].innerHTML);
+			if (refNum > borderColor.length)
+				borderColorIndex = (refNum + 1) % borderColor.length;
+			else
+				borderColorIndex = refNum + 1;
+		}
+
+		if (ID("tasks-container").innerHTML == "")
+			return;
+		else
+		{
+			// Bar width transition on page load
+			for (i=0; i<CLASS("js--progress-bar").length; i++)
+			{
+				CLASS("js--progress-bar")[i].style.transition = "0s";
+				CLASS("js--progress-bar")[i].style.width = "0%";
+			}
+			setTimeout(function()
+			{
+				for (i=0; i<CLASS("js--progress-bar").length; i++)
+				{
+					CLASS("js--progress-bar")[i].style.transition = "width 1.5s, color 1.2s, background 1.2s";
+					CLASS("js--progress-bar")[i].style.width = sieveInt(CLASS("js--progress-bar")[i].innerHTML)+"%";
+				}
+			}, 200);
+		
+			_task = CLASS("js--task-wrapper").length > 1 ? "tasks":"task";
+			toast("✔ Saved "+ _task +" loaded successfully.");
+			addListeners();
+			
+			tasksLen = CLASS("js--task-wrapper").length;
+			for (i=0; i<tasksLen; i++)
+				CLASS("js--task-wrapper")[i].style.borderTopColor = CLASS("js--task-wrapper")[i].getElementsByClassName("js--edit-content")[0].style.backgroundColor,
+				CLASS("js--save")[i].style.background = "#4169e1",
+				CLASS("js--delete")[i].style.background = "#bb3333";
+		
+			//Calling the timestamp function again on page reload
+			for (i=0; i<CLASS("js--timestamp").length; i++)
+				stampTimeOn(CLASS("js--timestamp")[i].parentNode.parentNode.getElementsByClassName("js--save")[0]);
+		}
+	}
+
+
+
+	//for fullscreen toggling
+  let doc = window.document,
+  docEl = doc.documentElement,
+  requestFullscreen = docEl.requestFullscreen || docEl.webkitRequestFullScreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen,
+  exitFullscreen = doc.exitFullscreen || doc.webkitExitFullScreen || doc.mozCancelFullScreen || doc.msExitFullscreen;
+  
+  if (requestFullscreen)
+    ID("open-info").addEventListener('dblclick', function() 
+    {
+      if (window.innerHeight == screen.height || this.classList.contains('fullscreen-enabled'))
+        exitFullscreen.call(doc),
+        this.classList.remove('fullscreen-enabled');
+      else
+        requestFullscreen.call(docEl),
+        this.classList.add('fullscreen-enabled');
+		});
+		
+	
+
+	function welcome() {
+		cached = false; 
+		if (storageEnabled)
+			for(i in localStorage)
+				if (!isNaN(Number(i)))
+				{
+					cached = true;
+					break;
+				}
+				else continue;
+				
+		function checkOldVersion()
+		{
+			page.style.display = "none";
+			for (var i in localStorage)
+				if (Number(i))
+				{
+					if (!(/save\-check/.test(localStorage[i])))
+					{
+						modal("Hi, once again. \n\nThis is to let you know that previous tasks in older version of app will have to be deleted to avoid errors in newer version and to serve you better. \nI apologize for the inconveniences. \n\n- Godspower", 
+							"Notify", "My To-do📝 App", 0, deleteOldVersion);
+						return null;
+					}
+				} else continue;
+			page.style.display = "flex";
+			loadHistory();
+			setTimeout(function()
+			{ toast("Welcome back. 😉✌"); }, 5200);
+		}
+		function deleteOldVersion()
+		{
+			for (var i in localStorage)
+				if (Number(i))
+				{
+					if (!(/save\-check/.test(localStorage[i])))
+					{
+						ID("toast").innerHTML = localStorage[i];
+						delete localStorage[i];
+						alert("Task "+i+", \""+ID("toast").getElementsByClassName("js--task-name")[0].innerHTML+"\", has just been deleted from storage.");
+					}
+				} else continue;
+			page.style.display = "flex";
+			setTimeout(function()
+			{ toast("Welcome back. 😉✌"); }, 200);
+		}
+		
+		
+		if (cached && loadOnce == 0)
+		{
+			//Checking, deleting older version of app in storage to avoid errors in newer version
+			checkOldVersion();
+		}
+		else
+		{
+			if (requestFullscreen)
+				alert('You can toggle fullscreen by double clicking/tapping on the \'info\' button at the bottom-right of your screen.');
+				
+			modal("Hi, there. Good day and welcome. \n\
+Thanks for loading this app. 😊\n\n\
+This is an 'e-To-do List'. \nThe word inflected from the word, 'to-do list', means \"A list of errands and other tasks – often written on a piece of paper as a memory aid – that one needs or intends to accomplish.\" (English Dictionary)\n\
+I hope you find this app useful in aiding you accomplish/complete your daily tasks.\n\n\
+Create/Add tasks and save them. You need not worry about what would happen to your outlined tasks when you close the browser, because the app was designed in a way that it saves your tasks in your browser and you will always get to see them whenever you lunch it, though it's offline. 😉 \n\
+And you can also track your progress with a particular task by setting the progress bar for the task. \n\n\
+So, set tasks daily for yourself and seek to accomplish them, and I believe it'll better you.\n\n\
+PS: This app works in sync with your browser's storage and thus won't or may not function appropriately without \"cookies\" enabled in your browser. So ensure cookies are enabled to enable task saving.\n\n\
+Thanks, once again. \n\n- Godspower  🙂✌", "Welcome", "My To-do📝 App", 0, function()
+			{
+				page.style.display = "flex";
+				timeout = storageEnabled ? 0:5200;
+	 			setTimeout(function()
+				{ toast("Welcome. 😊👍"); }, timeout);
+			});
+		}
+	}
+	
+	if (loadOnce == 0)
+		welcome();
+	if (!storageEnabled)
+		toast("⚠ App won't function appropriately without storage.<br/>Enable cookies in browser.");
+
+
+	//hide 000webhost sub-screen image link
+    for (var i = 0; i < TAG('a').length; i++)
+      if (/footer_img$/.test(TAG('a')[i].href))
+        TAG('a')[i].style.display = 'none';
+}
+
+		</script>
+	</body>
+</html>
